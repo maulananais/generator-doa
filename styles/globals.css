@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(156, 163, 175, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.8);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.8);
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom focus styles */
+input:focus, textarea:focus, select:focus, button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.5);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, transform;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom button animations */
+button {
+  transition: all 0.2s ease-out;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Loading animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin 2s linear infinite;
+}
+
+/* Backdrop blur for modals */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Toast animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-enter {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.toast-exit {
+  animation: slideOutRight 0.3s ease-out;
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-spiritual-500 to-purple-600 hover:from-spiritual-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium py-3 px-6 rounded-xl transition-colors;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6;
+  }
+  
+  .input-field {
+    @apply w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-spiritual-500 focus:border-transparent;
+  }
+  
+  .select-field {
+    @apply w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-spiritual-500 focus:border-transparent;
+  }
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, 
+    rgba(14, 165, 233, 0.1) 0%, 
+    rgba(168, 85, 247, 0.1) 50%, 
+    rgba(14, 165, 233, 0.1) 100%);
+}
+
+/* Prayer result styling */
+.prayer-text {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.8;
+  font-size: 1rem;
+  white-space: pre-wrap;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .prayer-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+}
+
+/* Dark mode image filters */
+.dark img {
+  filter: brightness(0.9);
+}
+
+/* Preserve emoji colors in dark mode */
+.emoji-preserve {
+  filter: none !important;
+  color: initial !important;
+  -webkit-filter: none !important;
+  font-style: normal !important;
+}
+
+/* Ensure leaf emoji stays green */
+.leaf-emoji {
+  color: #22c55e !important; /* Force green color */
+  filter: none !important;
+  -webkit-filter: none !important;
+  font-style: normal !important;
+  display: inline-block;
+}
+
+.dark .leaf-emoji {
+  color: #22c55e !important; /* Force green even in dark mode */
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* Content protection styles */
+.protected-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+}
+
+/* Disable text selection for all text content */
+body, p, h1, h2, h3, h4, h5, h6, span, div, a, li, td, th {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Re-enable selection for input fields */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Disable drag for images */
+img {
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  pointer-events: none;
+}
+
+/* Disable print styles */
+@media print {
+  body {
+    display: none !important;
+  }
+}

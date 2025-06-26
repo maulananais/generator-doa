@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 Generator Doa - Universal Prayer Reflection Tool</title>
+    <meta name="description" content="Sebuah web AI ringan dan responsif untuk menghasilkan doa/refleksi spiritual berdasarkan perasaan pengguna, dapat dipakai oleh semua keyakinan (universal).">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'spiritual': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen transition-all duration-300">
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-spiritual-500 to-purple-600 rounded-xl flex items-center justify-center">
+                    <span class="text-white text-lg">🌿</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900 dark:text-white">Generator Doa</h1>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Universal Prayer Reflection</p>
+                </div>
+            </div>
+            
+            <!-- Theme Toggle -->
+            <button id="themeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                <img id="lightIcon" src="public/assets/light-mode.svg" class="w-5 h-5 dark:hidden" alt="Light Mode">
+                <img id="darkIcon" src="public/assets/dark-mode.svg" class="w-5 h-5 hidden dark:block" alt="Dark Mode">
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-2xl mx-auto px-4 py-8">
+        
+        <!-- Welcome Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Selamat Datang di Generator Doa 🌿</h2>
+                <p class="text-gray-600 dark:text-gray-300">Bagikan perasaanmu, dan dapatkan refleksi spiritual yang menyentuh hati</p>
+            </div>
+            
+            <!-- Language & Spirituality Settings -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">🌍 Bahasa</label>
+                    <select id="languageSelect" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-spiritual-500 focus:border-transparent">
+                        <option value="id">🇮🇩 Indonesia</option>
+                        <option value="en">🇬🇧 English</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">☯️ Spiritualitas</label>
+                    <select id="spiritualitySelect" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-spiritual-500 focus:border-transparent">
+                        <option value="universal">🌌 Universal</option>
+                        <option value="islam">☪️ Islam</option>
+                        <option value="kristen">✝️ Kristen</option>
+                        <option value="buddha">☸️ Buddha</option>
+                        <option value="agnostik">🤔 Agnostik</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Prompt Type -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">🧠 Jenis Refleksi</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button class="prompt-type-btn active" data-type="ringkas">
+                        <span class="block text-sm font-medium">Ringkas</span>
+                        <span class="block text-xs opacity-75">Singkat & padat</span>
+                    </button>
+                    <button class="prompt-type-btn" data-type="sedang">
+                        <span class="block text-sm font-medium">Sedang</span>
+                        <span class="block text-xs opacity-75">Seimbang</span>
+                    </button>
+                    <button class="prompt-type-btn" data-type="mendalam">
+                        <span class="block text-sm font-medium">Mendalam</span>
+                        <span class="block text-xs opacity-75">Panjang & detail</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feeling Input -->
+            <div class="mb-6">
+                <label for="feelingInput" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">💭 Bagaimana perasaanmu hari ini?</label>
+                <textarea 
+                    id="feelingInput" 
+                    rows="4" 
+                    placeholder="Ceritakan perasaan, situasi, atau apa yang sedang kamu alami saat ini..."
+                    class="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-spiritual-500 focus:border-transparent resize-none"
+                ></textarea>
+            </div>
+
+            <!-- Generate Button -->
+            <button 
+                id="generateBtn" 
+                class="w-full bg-gradient-to-r from-spiritual-500 to-purple-600 hover:from-spiritual-600 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <img src="public/assets/send.svg" class="w-5 h-5" alt="Generate">
+                <span id="generateBtnText">Buat Refleksi Spiritual</span>
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 mb-8 text-center">
+            <div class="animate-spin w-8 h-8 border-4 border-spiritual-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p class="text-gray-600 dark:text-gray-300">Sedang menyiapkan refleksi spiritual untukmu...</p>
+        </div>
+
+        <!-- Result Card -->
+        <div id="resultCard" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
+            <!-- Model & Token Info -->
+            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 mb-6 text-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center">
+                    <div>
+                        <span class="text-gray-500 dark:text-gray-400">Model:</span>
+                        <span id="modelUsed" class="font-medium text-gray-900 dark:text-white ml-1">-</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 dark:text-gray-400">Input:</span>
+                        <span id="tokenInput" class="font-medium text-gray-900 dark:text-white ml-1">-</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 dark:text-gray-400">Output:</span>
+                        <span id="tokenOutput" class="font-medium text-gray-900 dark:text-white ml-1">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prayer Result -->
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">🌿 Refleksi Spiritualmu</h3>
+                <div id="prayerResult" class="bg-gradient-to-br from-spiritual-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-xl p-6 text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3">
+                <button id="regenerateBtn" class="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg transition-colors">
+                    <img src="public/assets/generate-again.svg" class="w-4 h-4" alt="Regenerate">
+                    <span>Buat Lagi</span>
+                </button>
+                
+                <button id="copyBtn" class="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg transition-colors">
+                    <img src="public/assets/copy.svg" class="w-4 h-4" alt="Copy">
+                    <span>Salin</span>
+                </button>
+                
+                <button id="shareBtn" class="flex items-center space-x-2 bg-spiritual-500 hover:bg-spiritual-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    <img src="public/assets/share.svg" class="w-4 h-4" alt="Share">
+                    <span>Bagikan</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- API Key Modal -->
+        <div id="apiKeyModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🔐 Groq API Key</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Untuk menggunakan Generator Doa, kamu perlu memasukkan Groq API Key. Jangan khawatir, key akan disimpan secara lokal di browser kamu.</p>
+                
+                <input 
+                    type="password" 
+                    id="apiKeyInput" 
+                    placeholder="Masukkan Groq API Key..."
+                    class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white mb-4 focus:ring-2 focus:ring-spiritual-500 focus:border-transparent"
+                >
+                
+                <div class="flex space-x-3">
+                    <button id="saveApiKey" class="flex-1 bg-spiritual-500 hover:bg-spiritual-600 text-white py-2 px-4 rounded-lg transition-colors">Simpan</button>
+                    <button id="cancelApiKey" class="flex-1 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg transition-colors">Batal</button>
+                </div>
+                
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">
+                    Dapatkan API Key gratis di <a href="https://console.groq.com" target="_blank" class="text-spiritual-500 hover:underline">console.groq.com</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-4xl mx-auto px-4 py-8 text-center border-t border-gray-200 dark:border-gray-700 mt-16">
+        <div class="text-gray-600 dark:text-gray-400">
+            <p class="mb-2">👑 Dibuat dengan ❤️ oleh <strong class="text-spiritual-600 dark:text-spiritual-400">Maulana Nais</strong></p>
+            <p class="text-sm italic">"Karena setiap rasa pantas mendapatkan cahaya." 🌿</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="prompt.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
