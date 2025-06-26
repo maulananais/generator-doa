@@ -7,7 +7,7 @@ export async function validateGroqKey(apiKey: string): Promise<ApiValidationResu
   if (!apiKey || !apiKey.startsWith('gsk_')) {
     return {
       isValid: false,
-      error: 'API Key harus dimulai dengan "gsk_"'
+      error: API Key must start with "gsk_"'
     };
   }
 
