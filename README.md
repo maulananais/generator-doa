@@ -177,9 +177,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👤 Author
 
 **Maulana Nais**
-- GitHub: [@maulananais](https://github.com/maulananais)
-- LinkedIn: [maulananais](https://linkedin.com/in/maulananais)
-- Instagram: [@mqulqnqq](https://instagram.com/mqulqnqq)
+- GitHub: [maulananais](https://github.com/maulananais)
+- LinkedIn: [Maulana Nais](https://linkedin.com/in/maulananais)
+- Instagram: [mqulqnqq](https://instagram.com/mqulqnqq)
 
 ## 🙏 Acknowledgments
 
