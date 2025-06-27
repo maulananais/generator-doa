@@ -54,7 +54,7 @@ export const translations: Translations = {
     
     // Actions
     generate: 'Buat Refleksi Spiritual',
-    generating: 'Sedang menyiapkan refleksi...',
+    generating: 'Sedang menyiapkan refleksi spiritual untukmu...',
     regenerate: 'Buat Lagi',
     copy: 'Salin',
     share: 'Bagikan',
@@ -161,7 +161,7 @@ export const translations: Translations = {
     
     // Actions
     generate: 'Generate Spiritual Reflection',
-    generating: 'Preparing your reflection...',
+    generating: 'Preparing your spiritual reflection...',
     regenerate: 'Generate Again',
     copy: 'Copy',
     share: 'Share',

@@ -22,11 +22,11 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 };
 
 interface LoadingStateProps {
-  message?: string;
+  message: string;
 }
 
 export const LoadingState: React.FC<LoadingStateProps> = ({ 
-  message = 'Sedang menyiapkan refleksi spiritual untukmu...' 
+  message 
 }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">

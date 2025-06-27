@@ -55,7 +55,7 @@ export const ResultBox: React.FC<ResultBoxProps> = ({
 
       {/* Prayer Result */}
       <div className="mb-6">        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          <span className="leaf-emoji">🌿</span> Refleksi Spiritualmu
+          <span className="leaf-emoji">🌿</span> {t('yourReflection')}
         </h3>
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-xl p-6 text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap">
           {result.content}

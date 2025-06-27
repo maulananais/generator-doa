@@ -156,7 +156,7 @@ export default function DashboardPage() {
 
           {/* Loading State */}
           {isGenerating && (
-            <LoadingState message="Sedang menyiapkan refleksi spiritual untukmu..." />
+            <LoadingState message={t('generating')} />
           )}
 
           {/* Result */}
