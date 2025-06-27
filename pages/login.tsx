@@ -4,14 +4,22 @@ import Head from 'next/head';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 import { validateGroqKey, storeApiKey, isAuthenticated } from '@/lib/validateGroqKey';
+import { useTranslations } from '@/lib/translations';
+import { Language } from '@/types';
 
 export default function LoginPage() {
   const [apiKey, setApiKey] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState('');
+  const [language, setLanguage] = useState<Language>('en');
   const router = useRouter();
+  const { t } = useTranslations(language);
 
   useEffect(() => {
+    // Get language from localStorage or default to English
+    const savedLanguage = localStorage.getItem('preferred-language') as Language || 'en';
+    setLanguage(savedLanguage);
+    
     // Redirect to dashboard if already authenticated
     if (isAuthenticated()) {
       router.push('/dashboard');
@@ -23,14 +31,14 @@ export default function LoginPage() {
     setError('');
     
     if (!apiKey.trim()) {
-      setError('API Key cannot be empty');
+      setError(t('apiKeyInvalidFormat'));
       return;
     }
 
     setIsValidating(true);
 
     try {
-      const result = await validateGroqKey(apiKey.trim());
+      const result = await validateGroqKey(apiKey.trim(), language);
       
       if (result.isValid) {
         storeApiKey(apiKey.trim());
@@ -44,10 +52,10 @@ export default function LoginPage() {
         }, 1000);
         
       } else {
-        setError(result.error || 'Invalid API Key');
+        setError(result.error || t('keyInvalid'));
       }
     } catch (err) {
-      setError('An error occurred while validating API Key');
+      setError(t('networkError'));
     } finally {
       setIsValidating(false);
     }
@@ -56,8 +64,8 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login - Generator Doa</title>
-        <meta name="description" content="Login to Generator Doa with your Groq API Key" />
+        <title>{t('login')} - {t('title')}</title>
+        <meta name="description" content={`${t('login')} to ${t('title')} with your Groq API Key`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         {/* Favicon and Icons */}
@@ -83,12 +91,28 @@ export default function LoginPage() {
                 <span className="text-white text-lg">🌿</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">Generator Doa</h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Universal Prayer Reflection</p>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
               </div>
             </Link>
             
-            <ThemeToggle />
+            <div className="flex items-center space-x-4">
+              {/* Language Selector */}
+              <select
+                value={language}
+                onChange={(e) => {
+                  const newLanguage = e.target.value as Language;
+                  setLanguage(newLanguage);
+                  localStorage.setItem('preferred-language', newLanguage);
+                }}
+                className="text-sm bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-spiritual-500 focus:border-transparent transition-colors"
+              >
+                <option value="en">🇺🇸 English</option>
+                <option value="id">🇮🇩 Indonesia</option>
+              </select>
+              
+              <ThemeToggle />
+            </div>
           </div>
         </header>
 
@@ -102,24 +126,24 @@ export default function LoginPage() {
                   <span className="text-2xl">🔐</span>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                  Welcome Back
+                  {t('welcome')}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Enter your Groq API Key to continue
+                  {t('apiKeyDescription')}
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Groq API Key
+                    {t('apiKeyTitle')}
                   </label>
                   <input
                     id="apiKey"
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
-                    placeholder="gsk_..."
+                    placeholder={t('apiKeyPlaceholder')}
                     className="input-field"
                     disabled={isValidating}
                     autoComplete="off"
@@ -146,7 +170,7 @@ export default function LoginPage() {
                   {isValidating ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Validating...</span>
+                      <span>{t('validating')}</span>
                     </>
                   ) : (
                     <>
@@ -166,7 +190,7 @@ export default function LoginPage() {
                       Don't have an API Key?
                     </p>
                     <p className="text-blue-600 dark:text-blue-400 mb-2">
-                      Get a free API Key at{' '}
+                      {t('apiKeyInfo')}
                       <a 
                         href="https://console.groq.com" 
                         target="_blank" 
@@ -211,7 +235,7 @@ export default function LoginPage() {
         {/* Footer */}
         <footer className="text-center py-8 px-4">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Made with ❤️ by <strong>Maulana Nais</strong> • "Because every feeling deserves light." <span className="leaf-emoji">🌿</span>
+            {t('createdBy')} <strong>Maulana Nais</strong> • {t('quote')} <span className="leaf-emoji">🌿</span>
           </p>
         </footer>
       </div>

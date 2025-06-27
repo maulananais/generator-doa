@@ -1,13 +1,14 @@
-import { ApiValidationResult } from '@/types';
+import { ApiValidationResult, Language } from '@/types';
+import { t } from './translations';
 
 /**
  * Validate Groq API Key by making a test request
  */
-export async function validateGroqKey(apiKey: string): Promise<ApiValidationResult> {
+export async function validateGroqKey(apiKey: string, language: Language = 'en'): Promise<ApiValidationResult> {
   if (!apiKey || !apiKey.startsWith('gsk_')) {
     return {
       isValid: false,
-      error: 'API Key must start with "gsk_"'
+      error: t('apiKeyInvalidFormat', language)
     };
   }
 
@@ -31,12 +32,12 @@ export async function validateGroqKey(apiKey: string): Promise<ApiValidationResu
     } else if (response.status === 401) {
       return {
         isValid: false,
-        error: 'API Key tidak valid atau sudah expired'
+        error: t('apiKeyExpired', language)
       };
     } else if (response.status === 429) {
       return {
         isValid: false,
-        error: 'Terlalu banyak permintaan. Silakan tunggu sebentar'
+        error: t('apiKeyRateLimit', language)
       };
     } else {
       return {
@@ -47,7 +48,7 @@ export async function validateGroqKey(apiKey: string): Promise<ApiValidationResu
   } catch (error) {
     return {
       isValid: false,
-      error: 'Gagal terhubung ke server Groq. Periksa koneksi internet Anda'
+      error: t('apiKeyNetworkError', language)
     };
   }
 }

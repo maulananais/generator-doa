@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getStoredApiKey } from '../lib/validateGroqKey';
 import { LoadingSpinner } from './Loading';
+import { useTranslations } from '../lib/translations';
+import { Language } from '../types';
 
 interface ApiKeyGuardProps {
   children: React.ReactNode;
@@ -10,7 +12,16 @@ interface ApiKeyGuardProps {
 export const ApiKeyGuard: React.FC<ApiKeyGuardProps> = ({ children }) => {
   const [isValidating, setIsValidating] = useState(true);
   const [hasValidKey, setHasValidKey] = useState(false);
+  const [language, setLanguage] = useState<Language>('en');
   const router = useRouter();
+  
+  const { t } = useTranslations(language);
+
+  useEffect(() => {
+    // Get language from localStorage or default to English
+    const savedLanguage = localStorage.getItem('preferred-language') as Language || 'en';
+    setLanguage(savedLanguage);
+  }, []);
 
   useEffect(() => {
     const validateAccess = async () => {
@@ -39,14 +50,14 @@ export const ApiKeyGuard: React.FC<ApiKeyGuardProps> = ({ children }) => {
     } else {
       setIsValidating(false);
     }
-  }, [router]);
+  }, [router, language]);
 
   if (isValidating) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
         <div className="text-center">
           <LoadingSpinner size="lg" className="text-blue-500 mb-4" />
-          <p className="text-gray-600 dark:text-gray-300">Memvalidasi akses...</p>
+          <p className="text-gray-600 dark:text-gray-300">{t('validatingAccess')}</p>
         </div>
       </div>
     );

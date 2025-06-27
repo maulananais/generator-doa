@@ -17,6 +17,7 @@ export const translations: Translations = {
     apiKeyInfo: 'Dapatkan API Key gratis di console.groq.com',
     validateKey: 'Validasi Key',
     validating: 'Memvalidasi...',
+    validatingAccess: 'Memvalidasi akses...',
     keyValid: 'API Key valid! Mengalihkan ke dashboard...',
     keyInvalid: 'API Key tidak valid',
     
@@ -100,6 +101,12 @@ export const translations: Translations = {
     characters: 'karakter',
     example: 'Contoh',
     
+    // API Validation Errors
+    apiKeyInvalidFormat: 'API Key harus dimulai dengan "gsk_"',
+    apiKeyExpired: 'API Key tidak valid atau sudah expired',
+    apiKeyRateLimit: 'Terlalu banyak permintaan. Silakan tunggu sebentar',
+    apiKeyNetworkError: 'Gagal terhubung ke server Groq. Periksa koneksi internet Anda',
+    
     // Examples by Spirituality
     exampleUniversal: 'Saya merasa cemas tentang masa depan dan butuh ketenangan batin',
     exampleIslam: 'Saya merasa jauh dari Allah dan ingin kembali ke jalan yang benar',
@@ -124,6 +131,7 @@ export const translations: Translations = {
     apiKeyInfo: 'Get a free API Key at console.groq.com',
     validateKey: 'Validate Key',
     validating: 'Validating...',
+    validatingAccess: 'Validating access...',
     keyValid: 'API Key valid! Redirecting to dashboard...',
     keyInvalid: 'Invalid API Key',
     
@@ -206,6 +214,12 @@ export const translations: Translations = {
     enhancedCapabilities: 'Enhanced capabilities',
     characters: 'characters',
     example: 'Example',
+    
+    // API Validation Errors
+    apiKeyInvalidFormat: 'API Key must start with "gsk_"',
+    apiKeyExpired: 'Invalid API Key or expired',
+    apiKeyRateLimit: 'Too many requests. Please wait a moment',
+    apiKeyNetworkError: 'Failed to connect to Groq server. Check your internet connection',
     
     // Examples by Spirituality
     exampleUniversal: 'I feel anxious about the future and need inner peace',
