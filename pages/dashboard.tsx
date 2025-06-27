@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { LogOut, Instagram, Linkedin, Github } from 'lucide-react';
+import { LogOut, Github } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 import { PrayerForm } from '@/components/PrayerForm';
 import { ResultBox } from '@/components/ResultBox';
@@ -185,28 +185,6 @@ export default function DashboardPage() {
             
             {/* Social Media Links */}
             <div className="flex justify-center space-x-6 mb-4">
-              <a
-                href="https://instagram.com/mqulqnqq"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors"
-                title="Follow on Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-                <span>@mqulqnqq</span>
-              </a>
-              
-              <a
-                href="https://linkedin.com/in/maulananais"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                title="Connect on LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-                <span>maulananais</span>
-              </a>
-              
               <a
                 href="https://github.com/maulananais"
                 target="_blank"
